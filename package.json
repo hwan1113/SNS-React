@@ -23,7 +23,16 @@
   },
   "homepage": "https://github.com/hwan1113/SNS-basics#readme",
   "dependencies": {
+    "lodash.orderby": "^4.6.0",
+    "parse-link-header": "^1.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.0",
+    "nodemon": "^2.0.2",
+    "webpack": "^4.41.5",
+    "webpack-dev-server": "^3.10.3"
   }
 }
