@@ -1,6 +1,5 @@
-require('@std/esm');
-require('babel-register');
-
+// require('@std/esm');
+// require('babel-register');
 try {
     module.exports = require('./server/run');
 } catch (err) {

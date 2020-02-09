@@ -1,0 +1,24 @@
+{
+    "env": {
+        "development": {
+            "presets": ["@babel/preset-env", "@babel/preset-react"]
+            // "presets": ["react-app", "env"],
+            // "plugins": ["transform-class-properties"]
+        },
+        "production": {
+            "presets": [
+                "react-app",
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "browsers": ["last 5 versions", "safari >= 7"],
+                            "node": "current"
+                        }
+                    }
+                ]
+            ],
+            "plugins": ["transform-class-properties"]
+        }
+    }
+}
