@@ -1,17 +1,14 @@
-const jsonAPI = require('json-server');
-const path = require('path');
-const uuid = require('uuid/v4');
-const fetch = require('isomorphic-fetch');
-const config = require('config');
-
-// import jsonAPI from 'json-server';
-// import { resolve } from 'path';
-// import fetch from 'isomorphic-fetch';
-// import uuid from 'uuid/v4';
-// import config from 'config';
+import jsonAPI from 'json-server';
+import { resolve } from 'path';
+import fetch from 'isomorphic-fetch';
+import uuid from 'uuid/v4';
+import config from 'config';
 const models = require('../db/models');
+//for babel dependency
+import "regenerator-runtime/runtime";
+ 
 
-// import { User, Comment, Post, Like } from '../db/models';
+import { User, Comment, Post, Like } from '../db/models';
 
 module.exports = () => {
     const server = jsonAPI.create();
@@ -113,6 +110,6 @@ module.exports = () => {
         }).then(res => res.json());
         return res.json(updatedPost);
     });
-    server.use(jsonAPI.router(path.resolve(__dirname, '..', 'db', 'db.json')));
+    server.use(jsonAPI.router(resolve(__dirname, '..', 'db', 'db.json')));
     return server;
 };
