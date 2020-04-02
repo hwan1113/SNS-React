@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { writeFile } from 'fs';
 import { promisify } from 'util';
-import { address, date, random } from 'faker';
+import { address, date, random, lorem } from 'faker';
 import mkdirp from 'mkdirp';
 import _ from 'lodash';
 import uuid from 'uuid/v4';
@@ -13,7 +13,7 @@ import { User, Comment, Like, Post } from './models';
 const write = promisify(writeFile);
 
 function generateFakeContent(type, lim) {
-    return 'String';
+    return lorem.sentence();
 }
 
 function generateProfilePicture() {
@@ -50,7 +50,7 @@ async function generateUser() {
 function generatePost(userId) {
     const config = {};
     config.id = uuid();
-    config.content = 'starwars'
+    config.content = lorem.sentence();
     config.date = new Date(date.recent(sample([1, 2, 3, 4, 5, 10, 15]))).getTime();
     config.image = Math.random() * 10 > 3 ? null : createShareableImage();
     config.likes = [];
