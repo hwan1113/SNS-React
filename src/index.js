@@ -1,12 +1,12 @@
 import React from 'react';
 import { hydrate, render } from 'react-dom';
-import App from './app';
-// import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
+import { history } from './history';
 
-// import { Router, browserHistory } from 'react-router';
-// import configureStore from './store/configureStore';
-// import initialReduxState from './constants/initialState';
-// import { routes } from './routes';
+import { Router, BrowserRouter} from 'react-router-dom';
+import configureStore from './store/configureStore';
+import initialReduxState from './constants/initialState';
+import { routes } from './routes';
 
 import './shared/crash';
 import './shared/service-worker';
@@ -14,13 +14,20 @@ import './shared/vendor';
 // NOTE: this isn't ES*-compliant/possible, but works because we use Webpack as a build tool
 import './styles/styles.scss';
 
-// Create the Redux store
-// const store = configureStore(initialReduxState);
 
-// hydrate(
-//     <Provider store={store}>
-//         <Router history={browserHistory} routes={routes} />
-//     </Provider>,
-//     document.getElementById('app')
-// );
-render(<App />, document.getElementById('app'));
+// Grab the state from a global variable injected into the server-generated HTML
+const preloadedState = window.__INITIAL_STATE__
+// Allow the passed state to be garbage-collected
+delete window.__INITIAL_STATE__
+
+// Create the Redux store
+const store = configureStore(preloadedState);
+
+hydrate(
+    <Provider store={store}>
+        <BrowserRouter>
+            {routes}
+        </BrowserRouter>
+    </Provider>,
+    document.getElementById('app')
+);

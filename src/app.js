@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import parseLinkHeader from "parse-link-header";
-import orderBy from "lodash.orderby";
+import orderBy from "lodash/orderBy";
 // import { connect } from 'react-redux';
 
 import ErrorMessage from "./components/error/Error";
@@ -10,6 +10,7 @@ import * as API from "./shared/http";
 import Navbar from "./components/nav/navbar";
 import Welcome from "./components/welcome/Welcome";
 import Posts from "./components/post/Post";
+import Ad from "./components/ad/Ad";
 /**
  * The app component serves as a root for the project and renders either children,
  * the error state, or a loading state
@@ -24,7 +25,7 @@ class App extends Component {
       error: null,
       loading: false,
       posts: [],
-      endpoint: `${process.env.ENDPOINT}/posts?_page=1&_sort=date&_order=DESC& embed=comments&_expand=user&_embed=likes`
+      endpoint: `${process.env.ENDPOINT}`
     };
     this.getPosts = this.getPosts.bind(this);
   }
@@ -46,34 +47,28 @@ class App extends Component {
   }
 
   getPosts() {
-    API.fetchPost(this.state.endpoint).then((res) => {
-      return res
-        .json()
-        .then((posts) => {
-          const links = parseLinkHeader(res.headers.get("Link"));
-          this.setState(() => ({
-            posts: orderBy(this.state.posts.concat(posts), "date", "desc"),
-            endpoint: links.next.url
-          }));
-        })
-        .catch((err) => {
-          this.setState(() => {
-            {
-              error: err;
-            }
-          });
-        });
+    API.fetchPost().then((res) => {
+      let posts = res.data;
+      // const links = parseLinkHeader(res.headers.get("Link"))
+      this.setState(() => ({
+        posts: posts,
+        // endpoint: links.next.url
+      }))
+    }).catch((err) => {
+      this.setState(() => {
+        error: err;
+      });
     });
   }
 
   render() {
-    // if (this.props.error) {
-    //     return (
-    //         <div className="app">
-    //             <ErrorMessage error={this.props.error} />
-    //         </div>
-    //     );
-    // }
+    if (this.props.error) {
+        return (
+            <div className="app">
+                <ErrorMessage error={this.props.error} />
+            </div>
+        );
+    }
     return (
       <div className="app">
         <Navbar />
@@ -86,10 +81,11 @@ class App extends Component {
           <div className="home">
             <Welcome />
             <div>
-              {this.state.posts.length && (
+              {this.state.posts && this.state.posts.length && (
                 <div className="posts">
                   {this.state.posts.map(({ id }) => {
-                    <Post id={id} key={id} user={this.props.user} />;
+                    console.log(id);
+                    return <Posts id={id} key={id} user={this.props.user} />;
                   })}
                 </div>
               )}

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import React, {Component} from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import App from './app';
 import Home from './pages/home';
@@ -10,7 +10,7 @@ import { loadUser } from './shared/http';
 import { createError } from './actions/error';
 import { loginSuccess } from './actions/auth';
 import { getFirebaseUser, getFirebaseToken } from './backend/auth';
-import configureStore from './store/configureStore';
+import configureStore from './store/configureStore'
 import { isServer } from './utils/environment';
 
 const store = configureStore();
@@ -57,16 +57,37 @@ async function requireUser(nextState, replace, callback) {
         return callback(err);
     }
 }
+const routes_arr =  [
+    {
+      path: '/',
+      exact: true,
+      'component': App,
+    },
+    {
+      path: '/posts/:postId',
+      component: SinglePost,
+      fetchInitialData: (path = '') => fetchPopularRepos(path.split('/').pop())
+    },
+    {
+        path: '/login',
+        component: Login,
+        fetchInitialData: (path = '') => fetchPopularRepos(path.split('/').pop())
+    },
+    {
+        path: '*',
+        component: NotFound
+    }
+  ]
 
 /**
  * Routes configuration
  * @module letters/components
  */
 export const routes = (
-    <Route path="/" component={App}>
-        <IndexRoute component={Home} onEnter={requireUser} />
-        <Route path="/posts/:postId" component={SinglePost} onEnter={requireUser} />
-        <Route path="/login" component={Login} />
-        <Route path="*" component={NotFound} />
-    </Route>
+    <Switch>
+        {/* {routes_arr.map(({path, exact, component, ...rest})=> {
+            <Route key={path} path={path} exact={exact} component = {component} />
+        })} */}
+         <Route path="/" component={App} />
+    </Switch>
 );
