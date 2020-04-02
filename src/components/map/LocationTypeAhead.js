@@ -9,10 +9,10 @@ import Loader from '../Loader';
  * @type {Object}
  */
 export default class LocationTypeAhead extends Component {
-    static propTypes = {
-        onLocationUpdate: PropTypes.func.isRequired,
-        onLocationSelect: PropTypes.func.isRequired
-    };
+    // static propTypes = {
+    //     onLocationUpdate: PropTypes.func.isRequired,
+    //     onLocationSelect: PropTypes.func.isRequired
+    // };
     constructor(props) {
         super(props);
         this.state = {

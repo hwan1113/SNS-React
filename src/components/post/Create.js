@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Filter from 'bad-words';
-import classnames from 'classnames';
+// import Filter from 'bad-words';
+// import classnames from 'classnames';
 
 import DisplayMap from '../map/DisplayMap';
 import LocationTypeAhead from '../map/LocationTypeAhead';
@@ -25,7 +25,7 @@ class CreatePost extends React.Component {
             locationSelected: false
         };
         this.state = this.initialState;
-        this.filter = new Filter();
+        // this.filter = new Filter();
         this.handlePostChange = this.handlePostChange.bind(this);
         this.handleRemoveLocation = this.handleRemoveLocation.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,7 +35,7 @@ class CreatePost extends React.Component {
         this.renderLocationControls = this.renderLocationControls.bind(this);
     }
     handlePostChange(event) {
-        const content = this.filter.clean(event.target.value);
+        const content = event.target.value
         this.setState(() => {
             return {
                 content,
@@ -99,10 +99,10 @@ class CreatePost extends React.Component {
                     <button onClick={this.handleToggleLocation} className="open">
                         {this.state.showLocationPicker ? 'Cancel' : 'Add location'}{' '}
                         <i
-                            className={classnames(`fa`, {
-                                'fa-map-o': !this.state.showLocationPicker,
-                                'fa-times': this.state.showLocationPicker
-                            })}
+                            // className={classnames(`fa`, {
+                            //     'fa-map-o': !this.state.showLocationPicker,
+                            //     'fa-times': this.state.showLocationPicker
+                            // })}
                         />
                     </button>
                 )}
@@ -141,8 +141,8 @@ class CreatePost extends React.Component {
     }
 }
 
-Post.CreatePost = {
-    onSubmit: PropTypes.func.isRequired
-}
+// Post.CreatePost = {
+//     onSubmit: PropTypes.func.isRequired
+// }
 
 export default CreatePost;

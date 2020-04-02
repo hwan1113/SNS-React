@@ -13,24 +13,10 @@ import * as API from "../../shared/http";
 import RouterLink from "../router/Link";
 
 export class Post extends Component {
-  static propTypes = {
-    //shape: define a shape of an object
-    post: PropTypes.shape({
-      comments: PropTypes.array,
-      content: PropTypes.string,
-      date: PropTypes.number,
-      id: PropTypes.string.isRequired,
-      image: PropTypes.string,
-      likes: PropTypes.array,
-      location: PropTypes.object,
-      user: PropTypes.object,
-      userId: PropTypes.string
-    })
-  };
   constructor(props) {
     super(props);
     this.state = {
-      post: null,
+      post: {},
       comments: [],
       showComments: false,
       user: this.props.user
@@ -42,7 +28,7 @@ export class Post extends Component {
   }
   loadPost(id) {
     API.fetchPost(id)
-      .then((res) => res.json())
+      .then((res) => res.data)
       .then((post) => {
         this.setState(() => ({ post }));
       });
@@ -54,20 +40,34 @@ export class Post extends Component {
     return (
       <div className="post">
         <UserHeader date={this.state.post.date} user={this.state.post.user} />
-        <Content post={this.state.post} />
-        <Image post={this.state.post} />
-        <Link link={this.state.post.link} />
-        <PostActionSection showComments={this.state.showComments} />
-        <Comments
+        {/* <Content post={this.state.post} /> */}
+        {/* <Image post={this.state.post} /> */}
+        {/* <Link link={this.state.post.link} /> */}
+        {/* <PostActionSection showComments={this.state.showComments} /> */}
+        {/* <Comments
           comments={this.state.comments}
           show={this.state.showComments}
           post={this.state.post}
           user={this.props.user}
-        />
+        /> */}
       </div>
     );
   }
+
 }
+
+Post.propTypes = {
+    // post: PropTypes.object.isRequired,
+    comments: PropTypes.array,
+    content: PropTypes.string,
+    date: PropTypes.number,
+    id: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    likes: PropTypes.array,
+    location: PropTypes.object,
+    user: PropTypes.object,
+    userId: PropTypes.string
+};
 
 export default Post;
 
