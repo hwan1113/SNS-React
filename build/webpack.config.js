@@ -19,7 +19,7 @@ module.exports = {
     devServer: {
         hot: true,
         // content not from webpack path.
-        // contentBase: join(__dirname, "../src"),
+        contentBase: join(__dirname, "../src"),
         open: true,
         //This means that a script will be inserted in your bundle to take care of live reloading, and build messages will appear in the browser console.
         inline: true,
@@ -32,6 +32,10 @@ module.exports = {
         overlay: { 
             warnings: true,
             errors: true
+        },
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS"
         }
     },
     //when error occurs, it will point to exactly where it occured through mapping. 
@@ -49,23 +53,23 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         //When the erorr occurs, do not refresh page
         new webpack.NoEmitOnErrorsPlugin(),
-        new HtmlWebpackPlugin({
-            // Create HTML file that includes references to bundled CSS and JS.
-            template: 'src/index.ejs',
-            minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeRedundantAttributes: true,
-                useShortDoctype: true,
-                removeEmptyAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                keepClosingSlash: true,
-                minifyJS: true,
-                minifyCSS: true,
-                minifyURLs: true
-            },
-            inject: true
-        })
+        // new HtmlWebpackPlugin({
+        //     // Create HTML file that includes references to bundled CSS and JS.
+        //     template: 'src/index.ejs',
+        //     minify: {
+        //         removeComments: true,
+        //         collapseWhitespace: true,
+        //         removeRedundantAttributes: true,
+        //         useShortDoctype: true,
+        //         removeEmptyAttributes: true,
+        //         removeStyleLinkTypeAttributes: true,
+        //         keepClosingSlash: true,
+        //         minifyJS: true,
+        //         minifyCSS: true,
+        //         minifyURLs: true
+        //     },
+        //     inject: true
+        // })
     ],
     module: {
         rules: [

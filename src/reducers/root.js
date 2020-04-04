@@ -6,6 +6,7 @@ import { pagination } from './pagination';
 import { posts, postIds } from './posts';
 import { user } from './user';
 import { comments, commentIds } from './comments';
+import { navigate } from './navigate';
 
 /**
  * Root reducer for project
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     pagination,
     postIds,
     posts,
-    user
+    user,
+    navigate,
 });
 
 export default rootReducer;

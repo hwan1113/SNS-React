@@ -26,3 +26,7 @@ export const comments = {
     SHOW: 'letters-social/comments/show',
     TOGGLE: 'letters-social/comments/toggle'
 };
+
+export const navigate = {
+    TO:'TO'
+}

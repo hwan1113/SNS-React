@@ -88,6 +88,7 @@ export const routes = (
         {/* {routes_arr.map(({path, exact, component, ...rest})=> {
             <Route key={path} path={path} exact={exact} component = {component} />
         })} */}
-         <Route path="/" component={App} />
+        <Route path="/login" component={Login} />
+        <Route path="/" component={App} />
     </Switch>
 );

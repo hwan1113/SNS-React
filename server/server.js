@@ -61,7 +61,7 @@ app.use(cors({ origin: config.get('ORIGINS') }));
 app.use('/api', backend);
 app.use('/static', express.static(resolve(__dirname, '..', 'static')));
 app.use(favicon(resolve(__dirname, '..', 'static', 'assets', 'meta', 'favicon.ico')));
-app.use('*', (req, res) => {
+app.use('*', async (req, res) => {
         // Only redirect if necessary and if the user isn't on the login page (to prevent a loop)
         const {redirectLocation, originalUrl} = req;
         if (redirectLocation && originalUrl !== '/login') {
@@ -76,21 +76,21 @@ app.use('*', (req, res) => {
             if (token) {
                 // Get the firebase user from their token
                 const firebaseUser = await firebase.auth().verifyIdToken(token);
+                
                 // Normally we'd do something like query the database or send a request to
-                // another service/microservice, not the same server, but for our purposes
-                // this works
-                // const userResponse = await fetch(
-                //     `${config.get('ENDPOINT')}/users/${firebaseUser.uid}`
-                // );
+                // another service/microservice, not the same server, but for our purposes this works
+                const userResponse = await fetch(
+                    `${config.get('ENDPOINT')}/users/${firebaseUser.uid}`
+                );
                 // If a user can be found, load data for them
-                // if (userResponse.status !== 404) {
-                //     const user = await userResponse.json();
-                //     // Redux-thunk allows us to wait for promises to finish, so we can dispatch
-                //     // async  action creators and wait for them to finish before sending the
-                //     // response back down to the browser
-                //     await store.dispatch(loginSuccess(user));
-                //     await store.dispatch(getPostsForPage());
-                // }
+                if (userResponse.status !== 404) {
+                    const user = await userResponse.json();
+                    // Redux-thunk allows us to wait for promises to finish, so we can dispatch
+                    // async  action creators and wait for them to finish before sending the
+                    // response back down to the browser
+                    await store.dispatch(loginSuccess(user));
+                    await store.dispatch(getPostsForPage());
+                }
             }
         } catch (err) {
             // If the user's token is expired, wipe their token

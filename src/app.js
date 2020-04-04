@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import parseLinkHeader from "parse-link-header";
 import orderBy from "lodash/orderBy";
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 import ErrorMessage from "./components/error/Error";
 import Loader from "./components/Loader";
@@ -114,11 +114,10 @@ App.propTypes = {
   children: PropTypes.node
 };
 
-// export const mapStateToProps = (state) => {
-//   return {
-//     error: state.error,
-//     loading: state.loading
-//   };
-// };
-// export default connect(mapStateToProps)(App);
-export default App;
+export const mapStateToProps = (state) => {
+  return {
+    error: state.error,
+    loading: state.loading
+  };
+};
+export default connect(mapStateToProps)(App);
