@@ -55,3 +55,15 @@ flow-typed
 /config
 #Do not load env file
 .env
+
+.env.production
+.firebaserc
+.flowconfig
+CODE_OF_CONDUCT.md
+build/build.js
+database.rules.json
+db/routes.json
+firebase.json
+package.json.bak
+test/
+yarn.lock
