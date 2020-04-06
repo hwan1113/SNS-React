@@ -1,4 +1,7 @@
 version: 2
+# Spin up environment, provide some defaults
+orbs:
+  welcome-orb: circleci/welcome-orb@0.4.1
 jobs:
   build:
     working_directory: ~/letters-social
