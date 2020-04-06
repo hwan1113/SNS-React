@@ -26,7 +26,7 @@ export const template = `<!DOCTYPE html><html lang="en">
             </script>
             <script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" type="text/javascript"></script>
             <script src="https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js" type="text/javascript"></script>
-            <script src="http://localhost:3000/bundle.js" type="text/javascript"></script>
+            <script src="http://localhost:3000/static/bundle.js" type="text/javascript"></script>
             </body>
         </html>
     `
