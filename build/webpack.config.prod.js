@@ -33,29 +33,29 @@ module.exports = {
                 revision: uuid()
             }
         }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-                comparisons: false
-            },
-            output: {
-                comments: false,
-                ascii_only: true
-            },
-            sourceMap: false
-        }),
-        new ExtractTextPlugin('styles.css'),
-        new ManifestPlugin(),
-        new SWPrecacheWebpackPlugin({
-            cacheId: 'letters',
-            dontCacheBustUrlsMatching: /\.\w{8}\./,
-            filename: 'service-worker.js',
-            minify: true,
-            navigateFallback: '/index.html',
-            staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
-        }),
-        process.env.ANALYZE ? new BundleAnalyzerPlugin() : function() {}
+        // new webpack.optimize.OccurrenceOrderPlugin(),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false,
+        //         comparisons: false
+        //     },
+        //     output: {
+        //         comments: false,
+        //         ascii_only: true
+        //     },
+        //     sourceMap: false
+        // }),
+        // new ExtractTextPlugin('styles.css'),
+        // new ManifestPlugin(),
+        // new SWPrecacheWebpackPlugin({
+        //     cacheId: 'letters',
+        //     dontCacheBustUrlsMatching: /\.\w{8}\./,
+        //     filename: 'service-worker.js',
+        //     minify: true,
+        //     navigateFallback: '/index.html',
+        //     staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+        // }),
+        // process.env.ANALYZE ? new BundleAnalyzerPlugin() : function() {}
     ],
     module: {
         rules: [
@@ -68,11 +68,8 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
-                })
+                test: /(\.css|\.scss)$/,
+                loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
             },
             {
                 test: /\.jsx?$/,

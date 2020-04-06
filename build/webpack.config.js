@@ -43,8 +43,8 @@ module.exports = {
     entry: ['./src/index'],
     cache: true,
     output: {
-        path: '/dist',
-        publicPath: 'http://localhost:3000/',
+        path: join(__dirname, '..', 'static'),
+        publicPath: 'http://localhost:3000/static/',
         filename: 'bundle.js'
     },
     plugins: [
