@@ -22,9 +22,5 @@ export default {
         id: null,
         name: null,
         token: null
-    },
-    navigate: {
-        redirect: false,
-        toWhere: null
     }
 };

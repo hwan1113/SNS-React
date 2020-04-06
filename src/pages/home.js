@@ -14,10 +14,10 @@ import Welcome from '../components/welcome/Welcome';
 
 export class Home extends Component {
     componentDidMount() {
-        this.props.actions.getPostsForPage();
+        // this.props.actions.getPostsForPage();
     }
     componentDidCatch(err, info) {
-        this.props.actions.createError(err, info);
+        // this.props.actions.createError(err, info);
     }
     render() {
         return (

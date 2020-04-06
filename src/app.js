@@ -8,9 +8,7 @@ import ErrorMessage from "./components/error/Error";
 import Loader from "./components/Loader";
 import * as API from "./shared/http";
 import Navbar from "./components/nav/navbar";
-import Welcome from "./components/welcome/Welcome";
-import Posts from "./components/post/Post";
-import Ad from "./components/ad/Ad";
+import Home from './pages/home';
 /**
  * The app component serves as a root for the project and renders either children,
  * the error state, or a loading state
@@ -77,33 +75,7 @@ class App extends Component {
             <Loader />
           </div>
         ) : (
-          // this.props.children
-          <div className="home">
-            <Welcome />
-            <div>
-              {this.state.posts && this.state.posts.length && (
-                <div className="posts">
-                  {this.state.posts.map(({ id }) => {
-                    console.log(id);
-                    return <Posts id={id} key={id} user={this.props.user} />;
-                  })}
-                </div>
-              )}
-              <button className="block" onClick={this.getPosts}>
-                Load more posts
-              </button>
-            </div>
-            <div>
-              <Ad
-                url="https://ifelse.io/book"
-                imageUrl="/static/assets/ads/ria.png"
-              />
-              <Ad
-                url="https://ifelse.io/book"
-                imageUrl="/static/assets/ads/ria.png"
-              />
-            </div>
-          </div>
+          <Home/>
         )}
       </div>
     );

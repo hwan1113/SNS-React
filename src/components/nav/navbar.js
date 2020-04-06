@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import { logout } from '../../actions/auth';
 import Logo from './logo';
-import { Redirect } from 'react-router';
-import { navigate } from '../../actions/navigate';
+import FilterLink from '../../components/router/FilterLink';
 
 /**
  * App navigation
@@ -13,14 +12,8 @@ import { navigate } from '../../actions/navigate';
  * @param  {Object}   props.user         user object
  * @param  {Function} props.handleLogout logout action
  */
-export const Navigation = ({ user, handleLogout, navigate, handleNavigate }) => {
-    if ( navigate.redirect == true) {
-        return (
-            <Redirect to={navigate.toWhere}/>
-        )
-    }
-    return (
-    <nav className="navbar">
+export const Navigation = ({ user, handleLogout}) => {
+    return <nav className="navbar">
         <Logo logoOnly={false} />
         {user.authenticated ? (
             <span className="user-nav-widget">
@@ -31,18 +24,17 @@ export const Navigation = ({ user, handleLogout, navigate, handleNavigate }) => 
                 </span>
             </span>
         ) : (
-            <button type="button" onClick={()=>{handleNavigate('/login')}}>Log in or sign up</button>
+            <FilterLink location={'login'}>
+                <button type="button">Log in or sign up</button>
+            </FilterLink>
         )}
     </nav>
-)}
+}
 
-export const mapStateToProps = state => ({ user: state.user, navigate: state.navigate});
+export const mapStateToProps = state => ({ user: state.user});
 export const mapDispatchToProps = dispatch => ({
     handleLogout() {
         dispatch(logout());
-    },
-    handleNavigate(location) {
-        dispatch(navigate(location));
     }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

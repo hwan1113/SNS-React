@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import App from './app';
-import Home from './pages/home';
 import SinglePost from './pages/post';
 import Login from './pages/login';
 import NotFound from './pages/404';
@@ -57,21 +56,19 @@ async function requireUser(nextState, replace, callback) {
         return callback(err);
     }
 }
-const routes_arr =  [
+const routesArr =  [
     {
       path: '/',
-      exact: true,
-      'component': App,
+      component: App,
     },
     {
       path: '/posts/:postId',
-      component: SinglePost,
-      fetchInitialData: (path = '') => fetchPopularRepos(path.split('/').pop())
+      component: SinglePost
+    //   fetchInitialData: (path = '') => fetchPopularRepos(path.split('/').pop())
     },
     {
         path: '/login',
         component: Login,
-        fetchInitialData: (path = '') => fetchPopularRepos(path.split('/').pop())
     },
     {
         path: '*',
@@ -85,10 +82,8 @@ const routes_arr =  [
  */
 export const routes = (
     <Switch>
-        {/* {routes_arr.map(({path, exact, component, ...rest})=> {
-            <Route key={path} path={path} exact={exact} component = {component} />
-        })} */}
-        <Route path="/login" component={Login} />
-        <Route path="/" component={App} />
+        {routesArr.map(({path, component, ...rest})=> {
+            return <Route key={path} path={path} component={component} {...rest} />
+        })}
     </Switch>
 );
