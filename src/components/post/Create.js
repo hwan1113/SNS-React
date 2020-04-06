@@ -123,18 +123,18 @@ class CreatePost extends React.Component {
                     className="location-picker"
                     style={{ display: this.state.showLocationPicker ? 'block' : 'none' }}
                 >
-                    {!this.state.locationSelected && (
+                    {/* {!this.state.locationSelected && (
                         <LocationTypeAhead
                             onLocationSelect={this.onLocationSelect}
                             onLocationUpdate={this.onLocationUpdate}
                         />
-                    )}
-                    <DisplayMap
+                    )} */}
+                    {/* <DisplayMap
                         displayOnly={false}
                         location={this.state.location}
                         onLocationSelect={this.onLocationSelect}
                         onLocationUpdate={this.onLocationUpdate}
-                    />
+                    /> */}
                 </div>
             </div>
         );

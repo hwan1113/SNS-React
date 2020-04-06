@@ -1,4 +1,3 @@
-// import { __PRODUCTION__ } from 'environs';
 import { resolve } from 'path';
 import bodyParser from 'body-parser';
 import compression from 'compression';
@@ -44,7 +43,7 @@ const app = express();
 const backend = DB();
 
 // Add some boilerplate middlware
-// app.use(logger(__PRODUCTION__ ? 'combined' : 'dev'));
+app.use(logger(config.get('NODE_ENV') == 'production' ? 'combined' : 'dev'));
 app.use(helmet.xssFilter({ setOnOldIE: true }));
 app.use(responseTime());
 app.use(helmet.frameguard());
