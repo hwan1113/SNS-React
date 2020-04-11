@@ -33,7 +33,7 @@ class App extends Component {
     // if (embeddedState) {
     //   embeddedState.remove();
     // }
-    this.getPosts();
+    // this.getPosts();
   }
 
   componentDidCatch(err, info) {
@@ -67,6 +67,7 @@ class App extends Component {
             </div>
         );
     }
+    
     return (
       <div className="app">
         <Navbar />

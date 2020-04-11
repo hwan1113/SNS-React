@@ -100,16 +100,18 @@ app.use('*', async (req, res) => {
             // dispatch the error
             store.dispatch(createError(err));
         }
+        
         let renderStream = ReactDOMServer.renderToString(
             <Provider store={store}>
-                <StaticRouter location={req.url} context={{}}>
+                <StaticRouter location={req.baseUrl} context={{}}>
                     {routes}
                 </StaticRouter>
             </Provider>
         );
         const preloadedState = store.getState()
-        res.send(HTML.template.replace(/\[SSR_COMPONENt\]/, renderStream)
+        res.send(HTML.template.replace(/\[SSR_COMPONENT\]/, renderStream)
                               .replace(/\[REDUXSTATE\]/, JSON.stringify(preloadedState).replace(/</g,'\\u003c'))
+                              .replace(/\[PATH_TO_BUNDLE\]/, process.env.NODE_ENV == 'production' ? '/static/bundle.js' : 'http://localhost:3000/static/bundle.js')
         )
     });
 
