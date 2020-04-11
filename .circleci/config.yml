@@ -1,12 +1,9 @@
 version: 2
-# Spin up environment, provide some defaults
-orbs:
-  welcome-orb: circleci/welcome-orb@0.4.1
 jobs:
-  build:
+  build1:
     working_directory: ~/letters-social
     docker:
-      - image: circleci/node:8.5.0
+      - image: circleci/node:12.16.1
         environment:
           NODE_ENV: development
     steps:
@@ -26,3 +23,16 @@ jobs:
       - store_artifacts:
           path: coverage
           prefix: coverage
+  deploy:
+    docker:
+      - image: circleci/node:12.16.1
+    steps:
+      - run: echo "hello" 
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+     - build1
+     - deploy:
+       requires:
+         - build1
