@@ -28,8 +28,8 @@ jobs:
       - image: circleci/node:12.16.1
     steps:
       - run: 
-        name: hello
-        command: echo "hello" 
+         name: hello
+         command: echo "hello" 
 workflows:
   version: 2
   build_and_deploy:
