@@ -23,18 +23,18 @@ jobs:
       - store_artifacts:
           path: coverage
           prefix: coverage
-  deploy:
-    docker:
-      - image: circleci/node:12.16.1
-    steps:
-      - run: 
-         name: hello
-         command: echo "hello" 
-workflows:
-  version: 2
-  build_and_deploy:
-    jobs:
-     - build1
-     - deploy:
-       requires:
-         - build1
+#   deploy:
+#     docker:
+#       - image: circleci/node:12.16.1
+#     steps:
+#       - run: 
+#          name: hello
+#          command: echo "hello" 
+# workflows:
+#   version: 2
+#   build_and_deploy:
+#     jobs:
+#      - build1
+#      - deploy:
+#        requires:
+#          - build1
