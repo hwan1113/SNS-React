@@ -40,7 +40,7 @@ module.exports = {
     },
     //when error occurs, it will point to exactly where it occured through mapping. 
     devtool: 'source-map',
-    entry: ['./src/index'],
+    entry: ['babel-polyfill', './src/index'],
     cache: true,
     output: {
         path: '/dist',

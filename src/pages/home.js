@@ -29,6 +29,7 @@ export class Home extends Component {
                         <div className="posts">
                             {this.props.posts.map(post => (
                                 <Post
+                                    id={post.id}
                                     key={post.id}
                                     post={post}
                                     openCommentsDrawer={this.props.actions.showComments}
