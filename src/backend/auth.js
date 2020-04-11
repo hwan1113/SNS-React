@@ -20,6 +20,7 @@ export function logUserOut() {
  * @return {void}
  */
 export function loginWithGithub() {
+    //add redirect option for mobiles - https://firebase.google.com/docs/auth/web/github-auth
     return firebase.auth().signInWithPopup(github);
 }
 

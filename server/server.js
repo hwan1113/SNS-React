@@ -11,14 +11,15 @@ import logger from 'morgan';
 import responseTime from 'response-time';
 import ReactDOMServer from 'react-dom/server';
 import favicon from 'serve-favicon';
+const serviceAccount = require("../config/sns-react-firebase-adminsdk-pukd1-64f7a8f26a.json");
 
 import * as firebase from 'firebase-admin';
 
 // Initialize Firebase
 firebase.initializeApp({
-    // credential: firebase.credential.cert(JSON.parse(process.env.LETTERS_FIREBASE_ADMIN_KEY)),
     //https://firebase.google.com/docs/reference/admin/node/admin.credential
-    credential: firebase.credential.applicationDefault(),
+    //https://firebase.google.com/docs/admin/setup
+    credential: firebase.credential.cert(serviceAccount),
     databaseURL: 'https://sns-react.firebaseio.com/'
 });
 
@@ -72,6 +73,7 @@ app.use('*', async (req, res) => {
             // We've stored the user id in a cookie named letters-token,
             // so we need to grab that here
             const token = req.cookies['letters-token'];
+            
             if (token) {
                 // Get the firebase user from their token
                 const firebaseUser = await firebase.auth().verifyIdToken(token);
@@ -100,7 +102,7 @@ app.use('*', async (req, res) => {
             // dispatch the error
             store.dispatch(createError(err));
         }
-        
+
         let renderStream = ReactDOMServer.renderToString(
             <Provider store={store}>
                 <StaticRouter location={req.baseUrl} context={{}}>

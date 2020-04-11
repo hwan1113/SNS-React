@@ -56,10 +56,11 @@ export function fetchPosts(endpoint) {
 export function fetchPost(id) {
     return axios.get(`${process.env.ENDPOINT}/posts?_sort=date&_order=asc&_page=1&_limit=5`)
     
-    return fetch(
-        `${process.env.ENDPOINT}/posts`,
-        generateFetchConfig('GET')
-    );
+    // return fetch(
+    //     `${process.env.ENDPOINT}/posts`,
+    //     generateFetchConfig('GET')
+    // );
+    // return false;
 }
 
 /**

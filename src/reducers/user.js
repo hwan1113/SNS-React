@@ -21,8 +21,8 @@ export function user(state = initialState.user, action) {
             }
             return Object.assign({}, state.user, {
                 authenticated: true,
-                name: user.name,
-                id: user.id,
+                name: user.displayName,
+                id: user.email,
                 profilePicture: user.profilePicture || '/static/assets/users/4.jpeg',
                 token
             });
