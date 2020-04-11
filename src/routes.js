@@ -56,10 +56,11 @@ async function requireUser(nextState, replace, callback) {
         return callback(err);
     }
 }
-const routesArr =  [
+const routesGroup =  [
     {
       path: '/',
       component: App,
+      exact: true
     },
     {
       path: '/posts/:postId',
@@ -69,6 +70,7 @@ const routesArr =  [
     {
         path: '/login',
         component: Login,
+        exact: true
     },
     {
         path: '*',
@@ -82,8 +84,8 @@ const routesArr =  [
  */
 export const routes = (
     <Switch>
-        {routesArr.map(({path, component, ...rest})=> {
-            return <Route key={path} path={path} component={component} {...rest} />
+        {routesGroup.map(({path, component, exact, ...rest})=> {
+            return <Route key={path} path={path} component={component} exact={exact} {...rest} />
         })}
     </Switch>
 );
