@@ -34,7 +34,7 @@ jobs:
       - run: 
           name: Deploy over SSH
           command: |
-            sshpass -p uSfUFtN2C894eKyrnSH ssh -p 55462 root@15.165.115.215 "echo hello"
+            sshpass -p uSfUFtN2C894eKyrnSH ssh -p 55462 root@15.165.115.215 "cd /workspace/SNSReact/; git pull origin master;"
 workflows:
   version: 2
   build_and_deploy:
