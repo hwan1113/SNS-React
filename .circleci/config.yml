@@ -34,11 +34,11 @@ workflows:
   build_and_deploy:
     triggers:
       - schedule:
-        cron: "0 0 1 * *"
-        filters:
-          branches:
-            only:
-              -master
+          cron: "0 0 1 * *"
+          filters:
+            branches:
+              only:
+                -master
     jobs:
       - build
       - deploy:
