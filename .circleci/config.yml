@@ -23,8 +23,8 @@ jobs:
           path: coverage
           prefix: coverage
   deploy:
-    docker:
-      - image: circleci/node:12.16.1
+    machine:
+      - enabled: true
     steps:
       - run: 
           name: Deploy over SSH
@@ -36,6 +36,5 @@ workflows:
     jobs:
       - build
       - deploy:
-          type: approval
           requires:
             - build
