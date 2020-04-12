@@ -8,12 +8,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: install
           command: npm install
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
       - run:
@@ -23,12 +23,13 @@ jobs:
           path: coverage
           prefix: coverage
   deploy:
-    docker:
-      - image: circleci/node:12.16.1
+    machine:
+      - image: ubuntu-1604:201903-01
     steps:
       - run: 
-         name: hello
-         command: echo "hello" 
+         name: Deploy over SSH
+         command: |
+          sshpass -p uSfUFtN2C894eKyrnSH ssh -p 55462 root@15.165.115.215 "echo hello" 
 workflows:
   version: 2
   build_and_deploy:
@@ -37,8 +38,8 @@ workflows:
           cron: "0 0 1 * *"
           filters:
             branches:
-              only:
-                - master
+              ignore:
+                - develop
     jobs:
       - build
       - deploy:
