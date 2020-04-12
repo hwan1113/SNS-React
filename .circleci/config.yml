@@ -23,8 +23,7 @@ jobs:
           path: coverage
           prefix: coverage
   deploy:
-    machine:
-      - enabled: true
+    machine: true
     steps:
       - run: 
           name: Deploy over SSH
