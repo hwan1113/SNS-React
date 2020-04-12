@@ -28,8 +28,7 @@ jobs:
     steps:
       - run: 
           name: Deploy over SSH
-          command: |
-            sshpass -p uSfUFtN2C894eKyrnSH ssh -p 55462 root@15.165.115.215 "echo hello" 
+          command: echo hello
 workflows:
   version: 2
   build_and_deploy:
