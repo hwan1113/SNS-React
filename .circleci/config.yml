@@ -26,6 +26,9 @@ jobs:
     machine: true
     steps:
       - run:
+          name: install update
+          command: sudo apt-get update 
+      - run:
           name: install SSHpass
           command: sudo apt-get install sshpass 
       - run: 
