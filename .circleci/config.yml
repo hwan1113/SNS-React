@@ -23,8 +23,8 @@ jobs:
           path: coverage
           prefix: coverage
   deploy:
-    machine:
-      - image: ubuntu-1604:201903-01
+    docker:
+      - image: circleci/node:12.16.1
     steps:
       - run: 
           name: Deploy over SSH
