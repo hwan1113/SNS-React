@@ -44,3 +44,5 @@ workflows:
           type: approval
           requires:
             - build
+          branches:
+            only: master

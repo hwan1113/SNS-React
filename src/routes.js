@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import App from './app';
@@ -11,6 +11,7 @@ import { loginSuccess } from './actions/auth';
 import { getFirebaseUser, getFirebaseToken } from './backend/auth';
 import configureStore from './store/configureStore'
 import { isServer } from './utils/environment';
+import OS from './pages/os';
 
 const store = configureStore();
 /**
@@ -56,16 +57,21 @@ async function requireUser(nextState, replace, callback) {
         return callback(err);
     }
 }
-const routesGroup =  [
+const routesGroup = [
     {
-      path: '/',
-      component: App,
-      exact: true
+        path: '/',
+        component: App,
+        exact: true
     },
     {
-      path: '/posts/:postId',
-      component: SinglePost
-    //   fetchInitialData: (path = '') => fetchPopularRepos(path.split('/').pop())
+        path: '/os',
+        exact: true,
+        component: OS
+    },
+    {
+        path: '/posts/:postId',
+        component: SinglePost
+        //   fetchInitialData: (path = '') => fetchPopularRepos(path.split('/').pop())
     },
     {
         path: '/login',
@@ -76,7 +82,7 @@ const routesGroup =  [
         path: '*',
         component: NotFound
     }
-  ]
+]
 
 /**
  * Routes configuration
@@ -84,7 +90,7 @@ const routesGroup =  [
  */
 export const routes = (
     <Switch>
-        {routesGroup.map(({path, component, exact, ...rest})=> {
+        {routesGroup.map(({ path, component, exact, ...rest }) => {
             return <Route key={path} path={path} component={component} exact={exact} {...rest} />
         })}
     </Switch>

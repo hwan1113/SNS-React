@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
  * @param  {object}            [body=null] payload for post/put
  * @return {object}                        config
  */
-function generateFetchConfig(method, body = null) {
+export function generateFetchConfig(method, body = null) {
     const upCasedMethod = method.toUpperCase();
     const token = Cookies.get('letters-token');
     const config = {

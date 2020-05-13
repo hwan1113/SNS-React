@@ -38,7 +38,7 @@ import { routes } from '../src/routes';
 import { loginSuccess } from '../src/actions/auth';
 import { getPostsForPage } from '../src/actions/posts';
 import { createError } from '../src/actions/error';
-
+import os from '../src/backend/os';
 // Create the express app and database
 const app = express();
 const backend = DB();
@@ -58,6 +58,7 @@ app.use(hpp());
 app.use(cors({ origin: config.get('ORIGINS') }));
 
 // other Route handlers
+app.use('/osapi', os)
 app.use('/api', backend);
 app.use('/static', express.static(resolve(__dirname, '..', 'static')));
 app.use(favicon(resolve(__dirname, '..', 'static', 'assets', 'meta', 'favicon.ico')));

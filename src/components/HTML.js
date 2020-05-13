@@ -18,6 +18,8 @@ export const template = `<!DOCTYPE html><html lang="en">
                 href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800"
                 rel="stylesheet"
             />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         </head>
         <body>
             <div id="app">[SSR_COMPONENT]</div>
