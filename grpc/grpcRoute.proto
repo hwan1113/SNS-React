@@ -8,8 +8,6 @@ option objc_class_prefix = "RTG";
 package grpcRoute;
 
 service grpcRoute {
-  // A feature with an empty name is returned if there's no feature at the given
-  // position.
   rpc GetFeature(Point) returns (Feature) {}
 
   // A server-to-client streaming RPC.
@@ -36,18 +34,15 @@ message Point {
 message Rectangle {
   // One corner of the rectangle.
   Point lo = 1;
-
   // The other corner of the rectangle.
   Point hi = 2;
 }
 
 // A feature names something at a given point.
-//
 // If a feature could not be named, the name is empty.
 message Feature {
   // The name of the feature.
   string name = 1;
-
   // The point where the feature is detected.
   Point location = 2;
 }
@@ -56,13 +51,11 @@ message Feature {
 message RouteNote {
   // The location from which the message is sent.
   Point location = 1;
-
   // The message to be sent.
   string message = 2;
 }
 
 // A RouteSummary is received in response to a RecordRoute rpc.
-//
 // It contains the number of individual points received, the number of
 // detected features, and the total distance covered as the cumulative sum of
 // the distance between each point.

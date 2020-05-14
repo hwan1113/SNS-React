@@ -2,6 +2,7 @@ var multer = require('multer');
 const fs = require('fs')
 const path = require('path')
 const { PassThrough, Writable } = require('stream');
+const { spawn, fork } = require('child_process');
 
 let os = async function (req, res) {
     const chapter = req.body.chapter || req.query.func
@@ -47,41 +48,14 @@ let os = async function (req, res) {
             console.log("first")
             return res.send("posix api received")
         },
-        video_stream: function () {
-            const stat = fs.statSync(path)
-            const fileSize = stat.size
-            const range = req.headers.range
-            if (range) {
-                const parts = range.replace(/bytes=/, "").split("-")
-                const start = parseInt(parts[0], 10)
-                const end = parts[1]
-                    ? parseInt(parts[1], 10)
-                    : fileSize - 1
-
-                if (start >= fileSize) {
-                    res.status(416).send('Requested range not satisfiable\n' + start + ' >= ' + fileSize);
-                    return
-                }
-
-                const chunksize = (end - start) + 1
-                const file = fs.createReadStream(path, { start, end })
-                const head = {
-                    'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-                    'Accept-Ranges': 'bytes',
-                    'Content-Length': chunksize,
-                    'Content-Type': 'video/mp4',
-                }
-
-                res.writeHead(206, head)
-                file.pipe(res)
-            } else {
-                const head = {
-                    'Content-Length': fileSize,
-                    'Content-Type': 'video/mp4',
-                }
-                res.writeHead(200, head)
-                fs.createReadStream(path).pipe(res)
-            }
+        child_proc: function() {
+            //execute as soon as process start
+            let forked = fork('./src/backend/fork.js')
+            //does not wait for fork
+            forked.on('message', (msg)=>{
+                console.log('message from child: ' + msg);
+            })
+            forked.send('greetings')
         }
     }
     let thread = {

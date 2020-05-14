@@ -1,7 +1,7 @@
 const protoLoader = require('@grpc/proto-loader');
 const grpc = require('grpc')
 const uuidv1 = require('uuid/v1')
-const PROTO_PATH = './notes.proto';
+const PROTO_PATH = './grpcRoute.proto';
 const options = {
     keepCase: true,
     longs: String,
@@ -13,66 +13,3 @@ const options = {
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, options);
 const packageObject = grpc.loadPackageDefinition(packageDefinition);
 module.exports = packageObject.grpcRoute;
-
-
-
-// const server = new grpc.Server()
-// const notes = [
-//     { id: '1', title: 'Note 1', content: 'Content 1'},
-//     { id: '2', title: 'Note 2', content: 'Content 2'}
-// ]
-
-// server.addService(packageObject.grpcRoute.service, {
-//     // _ is the request from the client, callback is a function we will invoke to return the response to the Client
-//     list: (_, callback) => {
-//         console.log(notes)
-//         callback(null, notes)
-//     },
-//     get: (call, callback) => {
-//         let note = notes.find((n) => n.id == call.request.id)
-//         if (note) {
-//             callback(null, note)
-//         } else {
-//             callback({
-//                 code: grpc.status.NOT_FOUND,
-//                 details: "Not found"
-//             })
-//         }
-//     },
-//     insert: (call, callback) => {
-//         let note = call.request
-//         note.id = uuidv1()
-//         notes.push(note)
-//         callback(null, note)
-//     },
-//     update: (call, callback) => {
-//         let existingNote = notes.find((n) => n.id == call.request.id)
-//         if (existingNote) {
-//             existingNote.title = call.request.title
-//             existingNote.content = call.request.content
-//             callback(null, existingNote)         
-//         } else {
-//             callback({
-//                 code: grpc.status.NOT_FOUND,
-//                 details: "Not found"
-//             })
-//         }
-//     },
-//     delete: (call, callback) => {
-//         let existingNoteIndex = notes.findIndex((n) => n.id == call.request.id)
-//         if (existingNoteIndex != -1) {
-//             notes.splice(existingNoteIndex, 1)
-//             callback(null, {})
-//         } else {
-//             callback({
-//                 code: grpc.status.NOT_FOUND,
-//                 details: "Not found"
-//             })
-//         }
-//     }
-// })
-
-// server.bind('127.0.0.1:50051',
-//   grpc.ServerCredentials.createInsecure())
-// console.log('Server running at http://127.0.0.1:50051')
-// server.start()

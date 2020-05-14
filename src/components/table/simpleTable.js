@@ -43,6 +43,13 @@ export default function SimpleTable() {
       <button onClick={handlePosix}>Posix api</button>,
       <input placeholder="uplaod auto" type="file" name="file" onChange={onChangeHandler} />,
       <video className={classes.video} id="videoPlayer" controls muted autoPlay src="/osapi?func=video_stream" />
+    ),
+    createData(
+      'Process',
+      'child_proc',
+      <button onClick={handlechild_proc}>child_proc</button>,
+      <input placeholder="uplaod auto" type="file" name="file" onChange={onChangeHandler} />,
+      12
     )
   ];
 
@@ -79,6 +86,13 @@ export default function SimpleTable() {
 const handlePosix = () => {
   return fetch(`/osapi/`,
     generateFetchConfig('POST', { chapter: "process", func: 'posix' })
+  ).then((res) => {
+    console.log(res)
+  })
+}
+const handlechild_proc = () => {
+  return fetch(`/osapi/`,
+    generateFetchConfig('POST', { chapter: "process", func: 'child_proc' })
   ).then((res) => {
     console.log(res)
   })
