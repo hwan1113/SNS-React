@@ -56,6 +56,9 @@ let os = async function (req, res) {
                 console.log('message from child: ' + msg);
             })
             forked.send('greetings')
+        },
+        scoket_io: function() {
+            
         }
     }
     let thread = {

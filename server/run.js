@@ -1,5 +1,6 @@
 import http from 'http';
 import app from './server';
+import socket from './socket';
 const port = process.env.PORT || '3000';
 
 // Set port for app
@@ -7,7 +8,8 @@ app.set('port', port);
 
 // Create the server
 const server = http.createServer(app);
-
+var io = require('socket.io')(server);
+socket.init(io);
 // Listen...and we're off!
 server.listen(port);
 server.on('error', onError);
@@ -37,3 +39,5 @@ function onListening() {
     const addr = server.address();
     console.info(`==> 🌎  Newsfeed is running on port ${addr.port} ✅`);
 }
+
+exports.io = io;

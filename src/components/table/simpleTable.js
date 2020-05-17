@@ -34,6 +34,7 @@ const onChangeHandler = (event) => {
 }
 
 export default function SimpleTable() {
+  // var socket = io();
   const classes = useStyles();
 
   const rows = [
@@ -49,6 +50,13 @@ export default function SimpleTable() {
       'child_proc',
       <button onClick={handlechild_proc}>child_proc</button>,
       <input placeholder="uplaod auto" type="file" name="file" onChange={onChangeHandler} />,
+      12
+    ),
+    createData(
+      'Process',
+      'socket',
+      <button onClick={handleSocket}>Socket</button>,
+      3,
       12
     )
   ];
@@ -95,5 +103,13 @@ const handlechild_proc = () => {
     generateFetchConfig('POST', { chapter: "process", func: 'child_proc' })
   ).then((res) => {
     console.log(res)
+  })
+}
+
+const handleSocket = () => {
+  socket.emit('date')
+  socket.on('date', (data)=>{
+    console.log(data.msg)
+
   })
 }
